@@ -1,6 +1,10 @@
 <?php
 
-namespace App\Date;
+namespace App\Date; 
+/*** name space evita que alguém crie outra classe com o nome month em outra pasta e gere conflito..
+ * Agora sempre que chamar essa classe tem de colocar o name space
+ * ex.: new App\Date\Month
+   */
 
 class Month {
     private $monthName = ['Janeiro', 'Fevereiro', 'Março', 'Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
@@ -11,7 +15,8 @@ class Month {
      *
      * @param integer $month os meses entre 1 e 12
      * @param integer $year o ano maior que 1970
-     * 
+     * @throws Exception 
+     * obs.: when theres no parameteres the default is null
      */
     public function __construct(?int $month = null, ?int $year = null)
     {   

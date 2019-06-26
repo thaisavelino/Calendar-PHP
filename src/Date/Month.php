@@ -23,6 +23,8 @@ class Month {
      * 
      * intval() método que converte valor em int, para evitar problemas futuros
      * date() metodo date() pega data e coloca no formato que definiu em ()
+     * 
+     * $month % 12 - então será sempre numero correto.
      */
     public function __construct(?int $month = null, ?int $year = null)
     {   
@@ -32,12 +34,8 @@ class Month {
         if ($year === null) {
             $year = intval(date('Y'));
         }
-        if ($month < 1 || $month > 12) {
-            throw new App\Date\Exception("Mês $month não é válido");
-        }
-        if ($year < 1970) {
-            throw new App\Date\Exception("Ano precisa ser superior a 1970");
-        }
+        $month = $month % 12;
+        
 
         // need thate this put on var mnth and year so the function toString() can see it.
         $this->month = $month; 
@@ -51,5 +49,28 @@ class Month {
      */
     public function toString(): string { 
         return $this->monthName[$this->month - 1] . ' ' . $this->year; //Mês 1 index 0, por isso faz menos 1
+    }
+    /**
+     * getWeeks()
+     * retorna o número de semanas que o mês tem.
+     * Isso ajudará a saber quantas linhas e colunas terá seu
+     * calendário no HTML
+     * 
+     * ele verfica se é negativo para evitar problemas caso o primeiro dia de janeiro se misture ao ano anterior
+     * 
+     * trabalhamos com as funções do PHP DateTime() e format()
+     * 
+     * @return integer
+     */
+    public function getWeeks(): int {
+        $start = new \DateTime("{$this->year}-{$this->month}-01"); //year-month-day
+        $end = (clone $start)->modify('+1 month -1 day'); //clona a var start e aplica o modify pra conseguir achar o ultimo dia do mes
+        //var_dump($start, $end);
+        //var_dump($end->format('W'),$start->format('W'));
+        $weeks = intval($end->format('W')-$start->format('W')) +1;
+        if ($weeks < 0) {
+            $weeks = intval($end->format('W'));
+        }
+        return $weeks;
     }
 }

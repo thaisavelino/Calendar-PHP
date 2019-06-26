@@ -22,7 +22,14 @@
     
     <?php
         require '../src/Date/Month.php'; /* Por enqunanto damos require aqui, depois vamos criar um autoloads */
-        $month = new App\Date\Month(); /* chama construtor month */
+        //$month = new App\Date\Month(02,1988); /* chama construtor month */
+        try {
+            $month = new App\Date\Month($_GET['month'] ?? null, $_GET['year'] ?? null); 
+            // se tem o valor pega se não o default é null
+            // Agora pode passaar pela URL -> http://localhost:8001/?month=10&year=2012
+        } catch (\Exception $e) {
+            $month = new App\Date\Month(); //se não conseguir pelo get, pega uma nova data
+        }
     ?>
     <h1><?= $month->toString(); ?></h1>
 </body>

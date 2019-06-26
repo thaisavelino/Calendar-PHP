@@ -22,7 +22,7 @@
     
     <?php
         require '../src/Date/Month.php'; /* Por enqunanto damos require aqui, depois vamos criar um autoloads */
-        $month = new App\Date\Month(10, 2018); /* chama construtor month */
+        $month = new App\Date\Month(); /* chama construtor month */
     ?>
     <h1><?= $month->toString(); ?></h1>
 </body>

@@ -35,14 +35,16 @@
         
         <table class="table col-md-12 text-center">
             <?php for ($i = 0; $i < $month->getWeeks(); $i++): ?>
-            <tr class="">
-                <?php foreach($month->weekDay as $value => $day): ?>
-                    <td class="">
-                        <?= $day; //$day->format('d'); ?>
-                        <?= (clone $start)->modify("+" . ($value + $i * 7) . "weekDay")->format('d'); ?>
-                     </td>
-                <?php endforeach; ?>
-            </tr>
+                <tr class="week-col">
+                    <?php foreach($month->weekDay as $value => $day): ?>
+                        <td class="day">
+                            <?php if ($i === 0): ?>
+                                <h5><?= $day; //$day->format('d'); ?></h5>
+                            <?php endif; ?>
+                            <?= (clone $start)->modify("+" . ($value + $i * 7) . " weekDay")->format('d'); ?>
+                        </td>
+                    <?php endforeach; ?>
+                </tr>
             <?php endfor; ?>
         </table>
     </div>

@@ -9,6 +9,8 @@ namespace App\Date;
    */
 
 class Month {
+    public $weekDay = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'];
+    
     private $monthName = ['Janeiro', 'Fevereiro', 'Março', 'Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
     private $month;
     private $year;
@@ -42,6 +44,18 @@ class Month {
         $this->year = $year;
     }
     /**
+     * getStartingDay()
+     * Verifica em qual dia da semana o mês começa
+     * Retorna o primeiro dia do mês
+     * 
+     * @return \DateTime
+     */
+    public function getStartingDay (): \DateTime {
+        return new \DateTime("{$this->year}-{$this->month}-01"); //year-month-day
+
+    }
+
+    /**
      *  : string  - é o tipo de retorno
      *  Função retorna o mês escrito por extenso
      * 
@@ -63,7 +77,7 @@ class Month {
      * @return integer
      */
     public function getWeeks(): int {
-        $start = new \DateTime("{$this->year}-{$this->month}-01"); //year-month-day
+        $start = $this->getStartingDay();
         $end = (clone $start)->modify('+1 month -1 day'); //clona a var start e aplica o modify pra conseguir achar o ultimo dia do mes
         //var_dump($start, $end);
         //var_dump($end->format('W'),$start->format('W'));

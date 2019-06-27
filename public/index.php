@@ -26,7 +26,7 @@
         $month = new App\Date\Month($_GET['month'] ?? null, $_GET['year'] ?? null);
             // se tem o valor pega se não o default é null
             // Agora pode passaar pela URL -> http://localhost:8001/?month=10&year=2012
-
+        $start = $month->getStartingDay()->modify('last  monday');
 ?>
     <div class="container">
         <h1><?= $month->toString(); ?></h1>
@@ -36,13 +36,12 @@
         <table class="table col-md-12 text-center">
             <?php for ($i = 0; $i < $month->getWeeks(); $i++): ?>
             <tr class="">
-                <td class="">Seg</td>
-                <td class="">Ter</td>
-                <td class="">Qua</td>
-                <td class="">Qui</td>
-                <td class="">Sex</td>
-                <td class=""> Sab</td>
-                <td class="">Dom</td>
+                <?php foreach($month->weekDay as $value => $day): ?>
+                    <td class="">
+                        <?= $day; //$day->format('d'); ?>
+                        <?= (clone $start)->modify("+$value weekDay")->format('d'); ?>
+                     </td>
+                <?php endforeach; ?>
             </tr>
             <?php endfor; ?>
         </table>

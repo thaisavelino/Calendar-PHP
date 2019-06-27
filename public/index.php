@@ -39,7 +39,7 @@
                 <?php foreach($month->weekDay as $value => $day): ?>
                     <td class="">
                         <?= $day; //$day->format('d'); ?>
-                        <?= (clone $start)->modify("+$value weekDay")->format('d'); ?>
+                        <?= (clone $start)->modify("+" . ($value + $i * 7) . "weekDay")->format('d'); ?>
                      </td>
                 <?php endforeach; ?>
             </tr>

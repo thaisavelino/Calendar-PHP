@@ -10,7 +10,7 @@ namespace App\Date;
 
 class Month {
     public $weekDay = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'];
-    
+
     private $monthName = ['Janeiro', 'Fevereiro', 'Março', 'Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
     private $month;
     private $year;
@@ -86,5 +86,19 @@ class Month {
             $weeks = intval($end->format('W'));
         }
         return $weeks;
+    }
+    /**
+     * Verifica Se está no mês atual ou anterior
+     * Vamos comparar a data que veio de parametro na função
+     * com o data do construtor (startingDay).
+     * 
+     * Assim sabemos se esse dia está no mesmo mês
+     * que o do calendário atual do usuário.
+     * 
+     * @param \DateTime $date
+     * @return boolean
+     */
+    public function actualMonth (\DateTime $date): bool {
+        return $this->getStartingDay()->format('Y-m') === $date->format('Y-m');
     }
 }

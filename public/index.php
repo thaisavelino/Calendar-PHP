@@ -26,7 +26,9 @@
         $month = new App\Date\Month($_GET['month'] ?? null, $_GET['year'] ?? null);
             // se tem o valor pega se não o default é null
             // Agora pode passaar pela URL -> http://localhost:8001/?month=10&year=2012
-        $start = $month->getFirstDay()->modify('last  monday'); //qual dia começará o calendario.
+        //corrigindo erro quando o mes começa na segunda feira.. antes trazia a semana do mes anterior
+        $start = $month->getStartingDay();
+        $start = $start->format('N') === '1'? $start : $month->getFirstDay()->modify('last  monday');
 ?>
     <div class="container">
         <h1><?= $month->toString(); ?></h1>

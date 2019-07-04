@@ -1,0 +1,16 @@
+{
+    "name": "thais/Calendar",
+    "authors": [
+        {
+            "name": "Thais",
+            "email": "student@grafikart.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Calendar\\": "src/Calendar"
+            //classes do namespace calendar estarão na pasta "src/calendar"
+        }
+    },
+    "require": {}
+}

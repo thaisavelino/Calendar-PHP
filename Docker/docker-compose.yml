@@ -2,6 +2,7 @@ version: "3.1"
 services:
     www:
         build: .
+        container_name: app
         ports: 
             - "8001:80"
         volumes:
@@ -12,21 +13,27 @@ services:
             - default
     db:
         image: mysql:8.0
+        container_name: db
+        restart: always
+        tty: true
         ports: 
             - "3306:3306"
         command: --default-authentication-plugin=mysql_native_password
         environment:
-            MYSQL_DATABASE: calendarDB
+            MYSQL_DATABASE: tutocalendar
             MYSQL_USER: user
             MYSQL_PASSWORD: 123456
-            MYSQL_ROOT_PASSWORD: 123456 
+            MYSQL_ROOT_PASSWORD: root 
         volumes:
-            - ~/PHP_TUTO_BEFORE_CAMAGRU/dump:/docker-entrypoint-initdb.d
-            - ~/PHP_TUTO_BEFORE_CAMAGRU/conf:/etc/mysql/conf.d
+            - /Users/tavelino/PHP_TUTO_BEFORE_CAMAGRU/www/Calendar/DB/dump:/docker-entrypoint-initdb.d
+            - /Users/tavelino/PHP_TUTO_BEFORE_CAMAGRU/www/Calendar/DB/conf:/etc/mysql/conf.d
             - persistent:/var/lib/mysql
         networks:
             - default
     phpmyadmin:
+        container_name: phpmyadmin
+        restart: always
+        tty: true
         image: phpmyadmin/phpmyadmin
         links: 
             - db:db
